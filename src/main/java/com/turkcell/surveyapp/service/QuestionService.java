@@ -3,6 +3,7 @@ package com.turkcell.surveyapp.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.stereotype.Service;
 
@@ -65,10 +66,18 @@ public class QuestionService {
 		for (int i = 0; i < optionList.size(); ++i) {
 			report.getDataBar().getLabels().add(optionList.get(i).getOption());
 			report.getDataBar().getDatasets().get(0).getData().add(optionList.get(i).getResponseCount());
-			report.getDataBar().getDatasets().get(0).getBackgroundColor().add("rgba(" + (i * 17) + ", " + (i * 19) + "," + (i * 23) + ",0.4)");
-			report.getDataBar().getDatasets().get(0).getBorderColor().add("rgba(" + (i * 17) + ", " + (i * 19) + "," + (i * 23) + ",0.4)");
+			String rgba = generateRandomRGBA();
+			report.getDataBar().getDatasets().get(0).getBackgroundColor().add(rgba);
+			report.getDataBar().getDatasets().get(0).getBorderColor().add(rgba);
 		}
 
 		return report;
+	}
+	
+	private String generateRandomRGBA() {
+		Integer randomR = new Random().nextInt(255);
+		Integer randomG = new Random().nextInt(255);
+		Integer randomB = new Random().nextInt(255);
+		return "rgba(" + randomR + ", " + randomG + "," + randomB + ",0.4)";
 	}
 }
