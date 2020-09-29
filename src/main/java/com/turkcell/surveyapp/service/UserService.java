@@ -24,6 +24,12 @@ public class UserService {
 		userSession.setUser(dto);
 		return dto;
 	}
+	
+	public UserDTO saveNotLogin(UserDTO dto) {
+		dto.setPassword(Utils.encodeWithMD5(dto.getPassword()));
+		dto = mapper.mapEntityToDto(service.save(mapper.mapDtoToEntity(dto)));
+		return dto;
+	}
 
 	public UserDTO findByUsernameAndPassword(String username, String password) {
 		password = Utils.encodeWithMD5(password);
